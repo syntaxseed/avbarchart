@@ -133,7 +133,7 @@ class syntax_plugin_avbarchart extends DokuWiki_Syntax_Plugin
     /**
      * Create output
      */
-    public function render($mode, &$renderer, $data)
+    public function render($mode, Doku_Renderer $renderer, $data)
     {
         if ($mode == 'xhtml') {
             list($state, $match) = $data;
