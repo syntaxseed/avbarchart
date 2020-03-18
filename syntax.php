@@ -33,22 +33,6 @@ class syntax_plugin_avbarchart extends DokuWiki_Syntax_Plugin
     public $maxPxHeight = "200";   // Maximum height of the chart in pixels.
     // *********************************************
 
-
-    /**
-     * return some info about the plugin
-     */
-    public function getInfo()
-    {
-        return array(
-            'author' => 'Sherri Wheeler',
-            'email'  => 'Use my website: http://syntaxseed.com',
-            'date'   => '2020-02-07',
-            'name'   => 'AV Bar Chart',
-            'desc'   => 'Generates a very simple CSS/HTML bar chart. Supports colored bars.',
-            'url'    => 'https://www.dokuwiki.org/plugin:avbarchart',
-        );
-    }
-
     /**
      * What kind of syntax are we?
      */
