@@ -93,16 +93,16 @@ class syntax_plugin_avbarchart extends DokuWiki_Syntax_Plugin
           case DOKU_LEXER_UNMATCHED:
 
             $chart = "";
-            list($maxRange, $data1) = split("\|", $match);
+            list($maxRange, $data1) = preg_split("/\|/", $match);
             $maxRange = floatval($maxRange);
 
             if ($maxRange > 0 && !empty($data1)) {
-                $values = split(",", $data1);
+                $values = split("/,/", $data1);
 
                 $chart = "";
                 foreach ($values as $col) {
                     if (!empty($col)) {
-                        list($label, $amount, $color) = split(":", $col);
+                        list($label, $amount, $color) = split("/:/", $col);
                         $amount = floatval($amount);
                         if (empty($label)) {
                             $label='&nbsp;';
