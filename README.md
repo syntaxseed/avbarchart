@@ -1,8 +1,10 @@
 # DokuWiki Plugin: AVBarChart
 
+<img src="example.png" border="0" />
+
 Generates a very simple CSS/HTML bar chart. Supports colors.
 
-Install and documentation:
+## Install and documentation:
 
 * https://www.dokuwiki.org/plugin:avbarchart
 * Licence: MIT (https://opensource.org/licenses/MIT)
