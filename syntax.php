@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin AVBarChart: Generates a very simple CSS/HTML bar chart
  *
@@ -8,7 +9,7 @@
  *
  * With Colored Bars: <barchart>100|A:55:#FFCCCC,B:5,C:23#00FF00,D:38</barchart>
  *
- * @license    MIT (https://opensource.org/licenses/MIT)
+ * @license    GPL-2.0 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
  * @author     Sherri W. (http://syntaxseed.com)
  */
 
