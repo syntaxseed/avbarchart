@@ -87,7 +87,11 @@ class syntax_plugin_avbarchart extends DokuWiki_Syntax_Plugin
                 $chart = "";
                 foreach ($values as $col) {
                     if (!empty($col)) {
-                        list($label, $amount, $color) = preg_split("/:/", $col);
+                        $inColumn = preg_split("/:/", $col);
+                        $label = $inColumn[0] ?? '';
+                        $amount = $inColumn[1] ?? 0;
+                        $color = $inColumn[2] ?? null;
+
                         $amount = floatval($amount);
                         if (empty($label)) {
                             $label='&nbsp;';
