@@ -1,7 +1,7 @@
 base   avbarchart
 author Sherri Wheeler
 email  Twitter @SyntaxSeed or http://SyntaxSeed.com
-date   2022-08-08
+date   2025-01-21
 name   AV Bar Chart
 desc   Generates a very simple CSS/HTML bar chart. Supports colored bars.
 url    https://www.dokuwiki.org/plugin:avbarchart
