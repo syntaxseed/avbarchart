@@ -14,10 +14,10 @@
  */
 
 if (!defined('DOKU_INC')) {
-    define('DOKU_INC', realpath(dirname(__FILE__).'/../../').'/');
+    define('DOKU_INC', realpath(dirname(__FILE__) . '/../../') . '/');
 }
 if (!defined('DOKU_PLUGIN')) {
-    define('DOKU_PLUGIN', DOKU_INC.'lib/plugins/');
+    define('DOKU_PLUGIN', DOKU_INC . 'lib/plugins/');
 }
 
 
@@ -71,49 +71,56 @@ class syntax_plugin_avbarchart extends DokuWiki_Syntax_Plugin
     public function handle($match, $state, $pos, Doku_Handler $handler)
     {
         switch ($state) {
-          case DOKU_LEXER_ENTER:
-            return array($state, '');
-          case DOKU_LEXER_MATCHED:
-            break;
-          case DOKU_LEXER_UNMATCHED:
-
-            $chart = "";
-            list($maxRange, $data1) = preg_split("/\|/", $match);
-            $maxRange = floatval($maxRange);
-
-            if ($maxRange > 0 && !empty($data1)) {
-                $values = preg_split("/,/", $data1);
+            case DOKU_LEXER_ENTER:
+                return array($state, '');
+            case DOKU_LEXER_MATCHED:
+                break;
+            case DOKU_LEXER_UNMATCHED:
 
                 $chart = "";
-                foreach ($values as $col) {
-                    if (!empty($col)) {
-                        $inColumn = preg_split("/:/", $col);
-                        $label = $inColumn[0] ?? '';
-                        $amount = $inColumn[1] ?? 0;
-                        $color = $inColumn[2] ?? null;
+                list($maxRange, $data1) = preg_split("/\|/", $match);
+                $maxRange = floatval($maxRange);
 
-                        $amount = floatval($amount);
-                        if (empty($label)) {
-                            $label='&nbsp;';
-                        }
-                        if (empty($color)) {
-                            $color = $this->barColor;
-                        }
-                        if ($amount >= 0) {
-                            $height = round(($amount/$maxRange*$this->maxPxHeight));
-                            $chart .= "<td valign='bottom' style='border:0;vertical-align:bottom;text-align:center;' align='center'><span style='font-size:".$this->fontSize.";'>".$amount."</span><br clear='all' /><table style='display:inline;border:0;' cellpadding='1' cellspacing='0'><tr><td height='".$height."' width='".$this->barWidth."' bgcolor='".$color."' valign='bottom'></td></tr></table><br clear='all' /><span style='font-size:".$this->fontSize.";'><b>".$label."</b></span></td>";
+                if ($maxRange > 0 && !empty($data1)) {
+                    $values = preg_split("/,/", $data1);
+
+                    $chart = "";
+                    foreach ($values as $col) {
+                        if (!empty($col)) {
+                            $inColumn = preg_split("/:/", $col);
+                            $label = $inColumn[0] ?? '';
+                            $amount = $inColumn[1] ?? 0;
+                            $color = $inColumn[2] ?? null;
+
+                            $amount = floatval($amount);
+
+                            if (empty($label)) {
+                                $label = '&nbsp;';
+                            } else {
+                                $label = hsc($label);
+                            }
+
+                            if (empty($color)) {
+                                $color = $this->barColor;
+                            } else {
+                                $color = hsc($color);
+                            }
+
+                            if ($amount >= 0) {
+                                $height = round(($amount / $maxRange * $this->maxPxHeight));
+                                $chart .= "<td valign='bottom' style='border:0;vertical-align:bottom;text-align:center;' align='center'><span style='font-size:" . $this->fontSize . ";'>" . $amount . "</span><br clear='all' /><table style='display:inline;border:0;' cellpadding='1' cellspacing='0'><tr><td height='" . $height . "' width='" . $this->barWidth . "' bgcolor='" . $color . "' valign='bottom'></td></tr></table><br clear='all' /><span style='font-size:" . $this->fontSize . ";'><b>" . $label . "</b></span></td>";
+                            }
                         }
                     }
                 }
-            }
 
-            $match = $chart;
-            return array($state, $match);
+                $match = $chart;
+                return array($state, $match);
 
-          case DOKU_LEXER_EXIT:
-            return array($state, '');
-          case DOKU_LEXER_SPECIAL:
-            break;
+            case DOKU_LEXER_EXIT:
+                return array($state, '');
+            case DOKU_LEXER_SPECIAL:
+                break;
         }
         return array();
     }
@@ -128,24 +135,25 @@ class syntax_plugin_avbarchart extends DokuWiki_Syntax_Plugin
             list($state, $match) = $data;
 
             switch ($state) {
-          case DOKU_LEXER_ENTER:
-            $renderer->doc .= "<table border='0' cellspacing='2' style='border:0;'><tr>";
-            break;
+                case DOKU_LEXER_ENTER:
+                    $renderer->doc .= "<table border='0' cellspacing='2' style='border:0;'><tr>";
+                    break;
 
-          case DOKU_LEXER_MATCHED:
-            break;
+                case DOKU_LEXER_MATCHED:
+                    break;
 
-          case DOKU_LEXER_UNMATCHED:
+                case DOKU_LEXER_UNMATCHED:
 
-            $renderer->doc .= $match; break;
+                    $renderer->doc .= $match;
+                    break;
 
-          case DOKU_LEXER_EXIT:
-            $renderer->doc .= "</tr></table>";
-            break;
+                case DOKU_LEXER_EXIT:
+                    $renderer->doc .= "</tr></table>";
+                    break;
 
-          case DOKU_LEXER_SPECIAL:
-            break;
-        }
+                case DOKU_LEXER_SPECIAL:
+                    break;
+            }
             return true;
         }
         return false;
